@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    button{
+      background: burlywood;
+    }
+    div{
+      padding: 50px;
+    height: 30em;
+    width: 650px;
+    border-style: solid;
+    background-color: blanchedalmond;
+    }
+  </style>
+
+</head>
+<body >
+  <div>
+    <button onclick="Add()">Add pacman</button>
+    <button onclick="move()">start game</button>
+  </div>
+  <script>
+    var pacman=[];
+    var x_pos=[];
+    var y_pos=[];
+    var x_vel=[];
+    var y_vel=[];
+    var gravity=1;
+    var pacman12=['images/PacMan1.png','images/PacMan2.png'];
+    var pacman34=['images/PacMan3.png','images/PacMan4.png'];
+    var index=0
+    var direction=[]
+    var velocity=15;
+    function Add(){
+      var xpos=Math.random()*600
+      var ypos=Math.random()*600
+      var image=document.createElement('img')
+      image.src="images/PacMan1.png"
+      image.style.width=50 +'px'
+      image.style.position='absolute'
+      image.style.left=xpos+'px'
+      image.style.top=ypos+'px'
+      pacman.push(image)
+      x_pos.push(xpos)
+      y_pos.push(ypos)
+      document.body.appendChild(image)
+    }
+            function move(){
+            index = index +1
+            for(let i=0;i<pacman.length;i++){
+                var xvel=Math.floor(Math.random()*20)
+                var yvel=Math.floor(Math.random()*20)
+                x_vel.push(xvel)
+                y_vel.push(yvel)
+                var dir=Math.random()<0.5 ? 1 : -1;
+                direction.push(dir)
+                x_pos[i] = x_pos[i] + x_vel[i]
+                y_pos[i] = y_pos[i] + y_vel[i]
+                
+            
+                if(x_pos[i]<=0 +10 || x_pos[i]>=700){
+                    x_vel[i]=-x_vel[i]*gravity
+                    direction[i]=-direction[i];
+                }
+                if(y_pos[i]<=0 +10 || y_pos[i]>=500){
+                    y_vel[i]=-y_vel[i]*gravity
+                    direction[i]=-direction[i];
+                    
+                }
+            
+                
+                
+
+
+                if(direction[i]==1){
+                    if(index % 2==0){
+                       pacman[i].src=pacman12[1]
+                    }
+                    else{
+                       pacman[i].src=pacman12[0]
+                    }  
+
+                }
+                else{
+                    
+                    if(index % 2==0){
+                        pacman[i].src=pacman34[1]
+                    }
+                    else{
+                        pacman[i].src=pacman34[0]
+                    }
+                }
+                    
+                
+
+                pacman[i].style.left = x_pos[i] + 'px'
+                pacman[i].style.top = y_pos[i] + 'px'
+                
+            }
+            
+            
+            
+
+            setTimeout(move,200)
+        }
+        
+
+    
+  </script>
+  
+</body>
+</html>
